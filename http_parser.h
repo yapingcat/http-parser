@@ -205,6 +205,17 @@ enum http_status
   XX(32, UNLINK,      UNLINK)       \
   /* icecast */                     \
   XX(33, SOURCE,      SOURCE)       \
+  XX(34, DESCRIBE,    DESCRIBE)     \
+  XX(35, ANNOUNCE,    ANNOUNCE)     \
+  XX(36, SETUP,       SETUP)        \
+  XX(37, PLAY,        PLAY)         \
+  XX(38, PAUSE,       PAUSE)        \
+  XX(39, TEARDOWN,    TEARDOWN)     \
+  XX(40, GET_PARAMETER, GET_PARAMETER ) \
+  XX(41, SET_PARAMETER, SET_PARAMETER ) \
+  XX(42, REDIRECT,    REDIRECT)     \
+  XX(43, RECORD,      RECORD)       \
+
 
 enum http_method
   {

@@ -10,6 +10,6 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
 endif()
 
 add_executable(test_rtsp test_rtsp.cpp http_parser.c)
-add_executable(test test.c http_parser.c)
+add_executable(test_http test.c http_parser.c)
 
 

@@ -215,6 +215,7 @@ enum http_status
   XX(41, SET_PARAMETER, SET_PARAMETER ) \
   XX(42, REDIRECT,    REDIRECT)     \
   XX(43, RECORD,      RECORD)       \
+  XX(44, PLAY_NOTIFY, PLAY_NOTIFY)  \
 
 
 enum http_method

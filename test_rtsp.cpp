@@ -94,7 +94,8 @@ void testOptions()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -121,7 +122,8 @@ void testDescribe()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -149,7 +151,8 @@ void testSetup()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -176,7 +179,8 @@ void testPlay()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -203,7 +207,8 @@ void testPause()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -225,7 +230,8 @@ void testTeardown()
 	setting.on_headers_complete = onHeaderCompleted;
 	setting.on_message_complete = onMessageCompleted;
 	int ret = http_parser_execute(&parser, &setting, teardown.c_str(), teardown.size());
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
@@ -252,11 +258,12 @@ void testSetParameter()
 	setting.on_message_complete = onMessageCompleted;
 
 	int ret = http_parser_execute(&parser, &setting, set_parameter.c_str(), set_parameter.size());
-
+    
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -283,7 +290,8 @@ void testGetParameter()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -310,7 +318,8 @@ void testRedirect()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
 
@@ -337,7 +346,8 @@ void testRecord()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
 	std::cout << parser.http_errno << std::endl;
 
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
@@ -470,8 +480,8 @@ int main()
 {
 	get_parameter += "packets_received";
 	set_parameter += "barparam: barstuff";
-	// testOptions();
-	// testDescribe();
+	testOptions();
+	testDescribe();
 	// testSetup();
 	// testPlay();
 	// testPause();

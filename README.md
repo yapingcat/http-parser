@@ -5,8 +5,9 @@ HTTP/RTSP Parser
 
 ## how to use
 
-test_rtsp.cpp有很多的测试用例可以参考 
-编译运行test_rtsp.cpp
+test_rtsp.cpp有很多的测试用例可以参考  
+
+编译运行 test_rtsp.cpp
 ```
 cmake . && make && ./test_rtsp
 ```

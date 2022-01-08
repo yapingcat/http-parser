@@ -14,7 +14,9 @@ std::string set_parameter = "SET_PARAMETER rtsp://example.com/fizzle/foo RTSP/1.
 std::string redirect = "REDIRECT rtsp://example.com/fizzle/foo RTSP/1.0\r\nCSeq: 312\r\nSession: 12345678\r\nLocation: rtsp://bigserver.com:8001\r\n\r\n";
 std::string record = "RECORD rtsp://example.com/fizzle/foo RTSP/1.0\r\nCSeq: 312\r\nSession: 12345678\r\nConference: 128.16.64.19/32492374\r\n\r\n";
 std::string response = "RTSP/1.0 200 OK\r\nCSeq: 312\r\nDate: 23 Jan 1997 15:35:06 GMT\r\nContent-Type: application/sdp\r\nContent-Length: 394\r\n\r\n";
+std::string response2 = "RTSP/2.0 200 OK\r\nCSeq: 312\r\nDate: 23 Jan 1997 15:35:06 GMT\r\nContent-Type: application/sdp\r\nContent-Length: 394\r\n\r\n";
 std::string play_notify = "PLAY_NOTIFY rtsp://example.com/fizzle/foo RTSP/2.0\r\nCSeq: 312\r\nSession: 12345678\r\nLocation: rtsp://bigserver.com:8001\r\n\r\n";
+std::string http_get = "GET /test HTTP/1.1\r\nCSeq: 312\r\nHost: 127.0.0.1\r\nLocation: http://www.12306.com:8001\r\nContent-Length: 0\r\n\r\n";
 
 std::string sdp = "v = 0\r\n"
 				  "o = mhandley 2890844526 2890842807 IN IP4 126.16.64.4\r\n"
@@ -362,9 +364,12 @@ void testPlayNotify()
 	std::cout << parser.method << std::endl;
 	std::cout << http_method_str((http_method)parser.method) << std::endl;
 	std::cout << ret << std::endl;
-
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
+    std::cout<<parser.http_major<<std::endl;
+    std::cout<<parser.http_minor<<std::endl;
 	std::cout << parser.http_errno << std::endl;
-
+    
 	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
 	std::cout << "==========test record===========" << std::endl;
 }
@@ -397,6 +402,70 @@ void testResponse()
 	std::cout << "==========test response===========" << std::endl;
 }
 
+
+void testResponse2()
+{
+	response += sdp;
+	std::cout << "==========test response2===========" << std::endl;
+	http_parser_settings setting;
+	http_parser parser;
+	http_parser_init(&parser, HTTP_RESPONSE);
+	http_parser_settings_init(&setting);
+	setting.on_url = onurl;
+	setting.on_status = onStatus;
+	setting.on_header_field = onHeaderField;
+	setting.on_header_value = onHeaderValue;
+	setting.on_body = onBody;
+	setting.on_headers_complete = onHeaderCompleted;
+	setting.on_message_complete = onMessageCompleted;
+
+	int ret = http_parser_execute(&parser, &setting, response2.c_str(), response2.size());
+
+	std::cout << parser.status_code << std::endl;
+	std::cout << http_status_str((http_status)parser.status_code) << std::endl;
+	std::cout << ret << std::endl;
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
+    std::cout<<parser.http_major<<std::endl;
+    std::cout<<parser.http_minor<<std::endl;
+	std::cout << parser.http_errno << std::endl;
+	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
+
+	std::cout << "==========test response2===========" << std::endl;
+}
+
+
+void testHttpGet()
+{
+	std::cout << "==========test http_get===========" << std::endl;
+	http_parser_settings setting;
+	http_parser parser;
+	http_parser_init(&parser, HTTP_REQUEST);
+	http_parser_settings_init(&setting);
+	setting.on_url = onurl;
+	setting.on_status = onStatus;
+	setting.on_header_field = onHeaderField;
+	setting.on_header_value = onHeaderValue;
+	setting.on_body = onBody;
+	setting.on_headers_complete = onHeaderCompleted;
+	setting.on_message_complete = onMessageCompleted;
+
+	int ret = http_parser_execute(&parser, &setting, http_get.c_str(), http_get.size());
+
+    std::cout << parser.method << std::endl;
+	std::cout << http_method_str((http_method)parser.method) << std::endl;
+	std::cout << ret << std::endl;
+    std::cout<<parser.protocol<<std::endl;
+    std::cout<<protocol_name(parser.protocol)<<std::endl;
+    std::cout<<parser.http_major<<std::endl;
+    std::cout<<parser.http_minor<<std::endl;
+	std::cout << parser.http_errno << std::endl;
+	std::cout << http_errno_name(HTTP_PARSER_ERRNO(&parser)) << std::endl;
+
+	std::cout << "==========test http_get===========" << std::endl;
+}
+
+
 int main()
 {
 	get_parameter += "packets_received";
@@ -413,4 +482,6 @@ int main()
 	// testRecord();
 	testPlayNotify();
 	//testResponse();
+    testResponse2();
+    testHttpGet();
 }

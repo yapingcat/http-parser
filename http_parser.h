@@ -325,6 +325,7 @@ struct http_parser {
                             */
 
   /** READ-ONLY **/
+  unsigned short protocol;  //1-http 2-rtsp
   unsigned short http_major;
   unsigned short http_minor;
   unsigned int status_code : 16; /* responses only */
@@ -437,6 +438,9 @@ const char *http_errno_name(enum http_errno err);
 
 /* Return a string description of the given error */
 const char *http_errno_description(enum http_errno err);
+
+/* Returna string name of the given proto  */
+const char *protocol_name(int proto);
 
 /* Initialize all http_parser_url members to 0 */
 void http_parser_url_init(struct http_parser_url *u);

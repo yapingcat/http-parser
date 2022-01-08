@@ -829,11 +829,13 @@ reexecute:
 
       case s_res_HTTP:
         STRICT_CHECK(ch != '/');
+        parser->protocol = 1;
         UPDATE_STATE(s_res_http_major);
         break;
 
 	  case s_res_RTSP:
 		STRICT_CHECK(ch != '/');
+        parser->protocol = 2;
 		UPDATE_STATE(s_res_http_major);
 		break;
 
@@ -1200,7 +1202,12 @@ reexecute:
         break;
 
       case s_req_http_HTTP:
+        parser->protocol = 1;
+        STRICT_CHECK(ch != '/');
+        UPDATE_STATE(s_req_http_major);
+        break;
 	  case s_req_rtsp_RTSP:
+        parser->protocol = 2;
         STRICT_CHECK(ch != '/');
         UPDATE_STATE(s_req_http_major);
         break;
@@ -2311,6 +2318,18 @@ http_errno_description(enum http_errno err) {
   assert(((size_t) err) < ARRAY_SIZE(http_strerror_tab));
   return http_strerror_tab[err].description;
 }
+
+const char *
+protocol_name(int proto) {
+  if(proto == 1) {
+      return "http";
+  }else if (proto == 2){
+      return "rtsp";
+  } else {
+      return "unkown protocol";
+  }
+}
+
 
 static enum http_host_state
 http_parse_host_char(enum http_host_state s, const char ch) {

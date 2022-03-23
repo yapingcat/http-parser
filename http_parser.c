@@ -1051,6 +1051,7 @@ reexecute:
 			      XX(GET,       3, '_', GET_PARAMETER)
 			      XX(REPORT,    2, 'D', REDIRECT)
 			      XX(REPORT,    2, 'C', RECORD)
+            XX(ACL,    1, 'N', ANNOUNCE)
 #undef XX
 
             default:
